@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome Back</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    #welcome-container {
+      text-align: center;
+      animation: zoomIn 1s ease-out;
+    }
+
+    h1 {
+      font-size: 4rem;
+      animation: float 3s infinite ease-in-out;
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeInText 2s ease forwards 1s;
+    }
+
+    button {
+      margin-top: 30px;
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      border-radius: 30px;
+      cursor: pointer;
+      animation: fadeInText 2s ease forwards 2s;
+      transition: background 0.3s ease, transform 0.2s;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: fall 5s infinite ease-in, sway 2s infinite;
+    }
+
+    @keyframes fadeInText {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes zoomIn {
+      0% {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    @keyframes fall {
+      0% {
+        top: -10px;
+      }
+      100% {
+        top: 100vh;
+      }
+    }
+
+    @keyframes sway {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(20px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="welcome-container">
+    <h1>Welcome Back, Ma'am Khat!</h1>
+    <p>We're so glad to see you! 🎉</p>
+    <button onclick="downloadSurprise()">Click here for the surprise</button>
+  </div>
+
+  <script>
+    // Generate random confetti continuously
+    function createConfettiPiece() {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+
+      const confettiColors = ['#ffcc00', '#ff4081', '#33cc33', '#00c0ff', '#ff6f61'];
+      confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      confetti.style.animationDelay = Math.random() * 5 + 's';
+
+      document.body.appendChild(confetti);
+
+      // Remove confetti after animation
+      setTimeout(() => {
+        confetti.remove();
+      }, 5000);
+    }
+
+    function generateConfetti() {
+      setInterval(createConfettiPiece, 100); // Adjust interval for density of confetti
+    }
+
+    // Start generating confetti
+    generateConfetti();
+
+    // Download PDF when button is clicked
+    function downloadSurprise() {
+      const link = document.createElement('a');
+      link.href = 'your-pdf-file.pdf'; // Replace with the path to your PDF file
+      link.download = 'surprise.pdf';
+      link.click();
+    }
+  </script>
+</body>
+</html>
